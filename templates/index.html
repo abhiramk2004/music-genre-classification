@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Audio Genre Classifier</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .upload-box {
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    input[type="file"] {
+      margin: 20px 0;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #result {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="upload-box">
+    <h2>Upload Audio File</h2>
+    <form id="uploadForm">
+      <input type="file" id="audioFile" accept="audio/*" required><br>
+      <button type="submit">Predict Genre</button>
+    </form>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    const form = document.getElementById("uploadForm");
+    const resultDiv = document.getElementById("result");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const fileInput = document.getElementById("audioFile");
+      const file = fileInput.files[0];
+
+      if (!file) {
+        resultDiv.textContent = "Please select an audio file.";
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("file", file);
+
+      resultDiv.textContent = "Processing...";
+
+      try {
+        const response = await fetch("/predict", {
+          method: "POST",
+          body: formData
+        });
+
+        const data = await response.json();
+        resultDiv.textContent = `Predicted Genre: ${data.genre}`;
+      } catch (err) {
+        resultDiv.textContent = "Error: Unable to predict.";
+      }
+    });
+  </script>
+</body>
+</html>
