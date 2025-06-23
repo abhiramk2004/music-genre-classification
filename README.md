@@ -124,11 +124,33 @@ A lightweight Flask web server provides a user interface for real-time inference
 ## Compatibility
 
 The model is designed to automatically detect and utilize available hardware:
-## To run
-```git clone https://github.com/abhiramk2004/music-genre-classification/
+## To run the app
+```
+   git clone https://github.com/abhiramk2004/music-genre-classification/
    cd music-genre-classification
    python -m venv venv
    source/venv/Script/activate
    pip install -r requirement.txt
    python mainthing.py
+```
+## To run the model training session
+```
+   git clone https://github.com/abhiramk2004/music-genre-classification/
+   cd music-genre-classification
+   python -m venv venv
+   source/venv/Script/activate
+   pip install -r requirement.txt
+   python mainthing.py
+```
+## Accuracy
+* Train accuracy:`86.42`
+* Validation accuracy:`85.62`
+* Test accuracy:`85.90`
 
+
+## Some Insights
+* I did training with genre specific augmentation, but made a class more missclassified
+* Adding the original one generalized the model, made the same audio without augmentation less misclassified
+* At first i made the model using keras, after i shifted the whole model and training process to pytorch, the shifting helped me to use cuda more efficiently
+* Understood about the need of three:train,validation,test dataset
+* Different model parameters are saved as a checkpoint 
