@@ -7,7 +7,7 @@ from flask import Flask,render_template,request,jsonify
 from flask_wtf import FlaskForm
 from wtforms import FileField,SubmitField
 from wtforms.validators import DataRequired
-
+device = torch.device( "cuda" if torch.cuda.is_available() else "cpu")
 def transform(waveform):
     if(len(waveform)<66150):
         waveform = np.pad(waveform, (0, max(0, 66150 - len(waveform))), mode='constant')
@@ -69,8 +69,8 @@ class CNNClassifier(nn.Module):
         return F.log_softmax(x, dim=1)
 
 model = CNNClassifier()
-model.to(torch.device("cuda"))
-model.load_state_dict(torch.load("ckpt/withweightdecay5channels.ckpt")["model_state_dict"])
+model.to(device)
+model.load_state_dict(torch.load("ckpt/withweightdecay5channels.ckpt", map_location=device)["model_state_dict"])
 model.eval()
 
 labels = ["blues","classical","country","disco","hiphop","jazz","metal","pop","reggae","rock"]
@@ -110,7 +110,7 @@ def predict():
                 continue
             x.append(chunk)
             i+=1
-        x = torch.from_numpy(np.stack(x)).permute(0, 3, 1, 2).float().to("cuda")
+        x = torch.from_numpy(np.stack(x)).permute(0, 3, 1, 2).float().to(device)
         pred = model(x)
         pred = pred.argmax(dim=1)
         unique_vals, counts = torch.unique(pred, return_counts=True)
