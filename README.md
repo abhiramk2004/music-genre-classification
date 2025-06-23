@@ -130,5 +130,5 @@ The model is designed to automatically detect and utilize available hardware:
    python -m venv venv
    source/venv/Script/activate
    pip install -r requirement.txt
-   python mainthing.py```
+   python mainthing.py
 
