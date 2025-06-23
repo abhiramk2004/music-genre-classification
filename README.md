@@ -140,7 +140,7 @@ The model is designed to automatically detect and utilize available hardware:
    python -m venv venv
    source/venv/Script/activate
    pip install -r requirement.txt
-   python mainthing.py
+   jupyter notebook
 ```
 ## Accuracy
 * Train accuracy:`86.42`
