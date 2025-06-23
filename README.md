@@ -125,10 +125,10 @@ A lightweight Flask web server provides a user interface for real-time inference
 
 The model is designed to automatically detect and utilize available hardware:
 ## To run
-```git clone https://github.com/abhiramk2004/music-genre-classification/```
-```cd music-genre-classification```
-```python -m venv venv```
-```source/venv/Script/activate```
-```pip install -r requirement.txt```
-```python mainthing.py```
+```git clone https://github.com/abhiramk2004/music-genre-classification/
+   cd music-genre-classification
+   python -m venv venv
+   source/venv/Script/activate
+   pip install -r requirement.txt
+   python mainthing.py```
 
